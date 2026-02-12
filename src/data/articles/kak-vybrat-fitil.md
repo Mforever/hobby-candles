@@ -1,7 +1,7 @@
 ---
 title: "Как выбрать идеальный фитиль для свечи"
 excerpt: "Полный гид по фитилям: таблица размеров, материалы, советы по подбору"
-image: "https://images.unsplash.com/photo-1605870445919-838d190e8e1b?w=800"
+image: "https://i.yapx.ru/c6JAH.jpg"
 date: "2026-01-28"
 category: "wicks"
 ---

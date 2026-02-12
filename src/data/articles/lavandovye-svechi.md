@@ -1,7 +1,7 @@
 ---
 title: "Лавандовые свечи: аромат спокойствия"
 excerpt: "Как создать идеальную лавандовую свечу с натуральным эфирным маслом"
-image: "https://images.unsplash.com/photo-1473172707857-f9e276582ab6?w=800"
+image: "https://i.yapx.ru/c6I5I.jpg"
 date: "2026-02-05"
 category: "fragrances"
 ---
