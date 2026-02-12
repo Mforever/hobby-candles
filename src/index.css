@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-amber-50/40 via-white to-amber-50/40 text-gray-900 antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
+  }
+
+  ::selection {
+    @apply bg-amber-200/70 text-amber-900;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700
+           transition-all duration-300 font-medium shadow-sm hover:shadow-md
+           hover:scale-105 active:scale-100;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-amber-700 px-6 py-3 rounded-lg border-2 border-amber-200
+           hover:border-amber-400 hover:bg-amber-50 transition-all duration-300
+           font-medium shadow-sm hover:shadow-md;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl md:text-4xl font-bold text-center mb-12 relative;
+  }
+
+  .section-title span {
+    @apply text-amber-600 relative inline-block;
+  }
+
+  .section-title span::after {
+    content: '';
+    @apply absolute -bottom-2 left-0 right-0 h-1 bg-amber-200 rounded-full mx-auto;
+    width: 80%;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0,0,0,0.12);
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+}
+
+/* Стили для Markdown контента */
+.prose {
+  @apply max-w-none;
+}
+
+.prose img {
+  @apply rounded-2xl shadow-lg mx-auto;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-amber-600 bg-amber-50/50 pl-6 py-3 italic rounded-r-2xl;
+}
+
+.prose ul {
+  @apply list-disc list-inside;
+}
+
+.prose ol {
+  @apply list-decimal list-inside;
+}
+
+.prose li {
+  @apply mb-1;
+}
+
+.prose code {
+  @apply bg-amber-100/80 px-1.5 py-0.5 rounded-md text-amber-800 text-sm font-mono;
+}
+
+.prose pre {
+  @apply bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto;
+}
+
+.prose pre code {
+  @apply bg-transparent text-inherit p-0;
+}
+
+/* Адаптивность */
+@media (max-width: 640px) {
+  .container-custom {
+    @apply px-4;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+}
