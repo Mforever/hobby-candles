@@ -1,13 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaFire, FaFlask, FaLeaf, FaPalette, FaCubes, FaArrowRight } from 'react-icons/fa';
-import { useState, useEffect, useRef } from 'react';
 
 const CategoryCard = ({ category }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef(null);
-
-  // Данные категорий с красивыми градиентами и эмодзи вместо картинок
   const categoryData = {
     wax: {
       name: 'Воск',
@@ -20,9 +14,7 @@ const CategoryCard = ({ category }) => {
       borderColor: 'border-amber-200',
       description: 'Соевый, кокосовый, пальмовый — выбирай свой идеальный воск',
       articleCount: 15,
-      gradient: 'from-amber-400 to-orange-500',
-      tags: ['🌱 Соевый', '🥥 Кокосовый', '🌴 Пальмовый'],
-      pattern: '🔵🔴🟡'
+      tags: ['🌱 Соевый', '🥥 Кокосовый', '🌴 Пальмовый']
     },
     fragrances: {
       name: 'Ароматы',
@@ -35,9 +27,7 @@ const CategoryCard = ({ category }) => {
       borderColor: 'border-purple-200',
       description: 'Эфирные масла, отдушки, парфюмерные композиции',
       articleCount: 12,
-      gradient: 'from-purple-400 to-pink-500',
-      tags: ['🌿 Лаванда', '🍊 Цитрус', '🌲 Хвоя'],
-      pattern: '🌸🌺🌹'
+      tags: ['🌿 Лаванда', '🍊 Цитрус', '🌲 Хвоя']
     },
     wicks: {
       name: 'Фитили',
@@ -50,9 +40,7 @@ const CategoryCard = ({ category }) => {
       borderColor: 'border-green-200',
       description: 'Хлопковые, деревянные, с бумажным наполнителем',
       articleCount: 8,
-      gradient: 'from-green-400 to-emerald-500',
-      tags: ['🧵 Хлопок', '🪵 Дерево', '📄 Бумага'],
-      pattern: '🌿🍃🌱'
+      tags: ['🧵 Хлопок', '🪵 Дерево', '📄 Бумага']
     },
     molds: {
       name: 'Формы',
@@ -65,9 +53,7 @@ const CategoryCard = ({ category }) => {
       borderColor: 'border-blue-200',
       description: 'Силикон, пластик, металл — любые формы для твоих идей',
       articleCount: 10,
-      gradient: 'from-blue-400 to-indigo-500',
-      tags: ['🧴 Силикон', '🥤 Пластик', '⚙️ Металл'],
-      pattern: '◻️◼️◻️'
+      tags: ['🧴 Силикон', '🥤 Пластик', '⚙️ Металл']
     },
     decor: {
       name: 'Декор',
@@ -80,9 +66,7 @@ const CategoryCard = ({ category }) => {
       borderColor: 'border-pink-200',
       description: 'Сухоцветы, красители, блёстки — сделай свечу искусством',
       articleCount: 14,
-      gradient: 'from-pink-400 to-rose-500',
-      tags: ['🌸 Сухоцветы', '✨ Блёстки', '🎨 Красители'],
-      pattern: '✨💫⭐'
+      tags: ['🌸 Сухоцветы', '✨ Блёстки', '🎨 Красители']
     }
   };
 
@@ -91,181 +75,98 @@ const CategoryCard = ({ category }) => {
 
   const Icon = data.icon;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <Link
-      ref={cardRef}
       to={`/category/${data.slug}`}
       className="group relative block overflow-hidden rounded-3xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Фон с градиентом и узором */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${data.bgGradient} transition-opacity duration-500 ${
-        isHovered ? 'opacity-0' : 'opacity-100'
-      }`}>
-        {/* Декоративные элементы */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 text-6xl transform rotate-12">
-            {data.emoji}
-          </div>
-          <div className="absolute bottom-10 right-10 text-8xl opacity-20">
-            {data.emoji}
-          </div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-7xl opacity-10">
-            {data.pattern}
-          </div>
-        </div>
-      </div>
+      {/* Фон с градиентом */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${data.bgGradient}`} />
 
       {/* Hover градиент */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${data.hoverGradient} transition-opacity duration-500 ${
-        isHovered ? 'opacity-100' : 'opacity-0'
-      }`}>
-        {/* Анимированные частицы при наведении */}
-        {isHovered && (
-          <div className="absolute inset-0">
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-2 h-2 bg-white rounded-full animate-ping"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${i * 0.1}s`,
-                  opacity: 0.3
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      <div className={`absolute inset-0 bg-gradient-to-br ${data.hoverGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
       {/* Контент */}
-      <div className="relative z-10 p-8 flex flex-col h-full min-h-[320px]">
-        <div className={`transform transition-all duration-700 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          {/* Верхняя часть с иконкой и заголовком */}
-          <div className="flex items-start justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <div className={`
-                relative w-16 h-16 rounded-2xl flex items-center justify-center
-                bg-gradient-to-br ${data.hoverGradient} text-white
-                transform group-hover:scale-110 transition-all duration-500
-                shadow-lg group-hover:shadow-xl
+      <div className="relative z-10 p-6 sm:p-8 flex flex-col h-full min-h-[320px] sm:min-h-[360px]">
+        {/* Верхняя часть с иконкой и заголовком */}
+        <div className="flex items-start justify-between gap-4 mb-6">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className={`
+              w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center
+              bg-gradient-to-br ${data.hoverGradient} text-white
+              transform group-hover:scale-110 transition-all duration-500
+              shadow-lg flex-shrink-0
+            `}>
+              <Icon className="text-2xl sm:text-3xl" />
+            </div>
+
+            <div>
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-gray-800 group-hover:text-white transition-colors duration-300">
+                {data.name}
+              </h3>
+              <span className={`
+                inline-block text-xs sm:text-sm font-medium px-2 sm:px-3 py-1 sm:py-1.5
+                rounded-full bg-amber-100 ${data.textColor}
+                group-hover:bg-white/30 group-hover:text-white
+                transition-all duration-300 mt-1
               `}>
-                <Icon className="text-3xl" />
-
-                {/* Эффект пульсации */}
-                <div className="absolute inset-0 rounded-2xl animate-ping opacity-20 bg-white" />
-              </div>
-
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-gray-800 group-hover:text-white transition-colors duration-300">
-                  {data.name}
-                </h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className={`text-sm font-medium px-3 py-1 rounded-full ${
-                    isHovered
-                      ? 'bg-white/30 text-white'
-                      : `bg-amber-100 ${data.textColor}`
-                  } transition-all duration-300`}>
-                    {data.articleCount} статей
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Эмодзи-иконка */}
-            <div className={`
-              text-4xl transform transition-all duration-500
-              ${isHovered ? 'scale-110 rotate-12' : 'scale-100'}
-            `}>
-              {data.emoji}
-            </div>
-          </div>
-
-          {/* Описание */}
-          <p className={`
-            text-lg mb-6 line-clamp-2 transition-colors duration-300
-            ${isHovered ? 'text-white' : 'text-gray-600'}
-          `}>
-            {data.description}
-          </p>
-
-          {/* Теги */}
-          <div className="flex flex-wrap gap-2">
-            {data.tags.map((tag, index) => (
-              <span
-                key={index}
-                className={`
-                  px-3 py-1.5 rounded-full text-sm font-medium
-                  transition-all duration-300 transform hover:scale-105
-                  ${isHovered
-                    ? 'bg-white/30 text-white backdrop-blur'
-                    : `bg-white ${data.textColor} border ${data.borderColor}`
-                  }
-                `}
-              >
-                {tag}
+                {data.articleCount} статей
               </span>
-            ))}
-          </div>
-
-          {/* Стрелка внизу */}
-          <div className="absolute bottom-8 right-8">
-            <div className={`
-              w-10 h-10 rounded-full flex items-center justify-center
-              transition-all duration-500 transform
-              ${isHovered
-                ? 'bg-white translate-x-2 -translate-y-2'
-                : 'bg-gray-100'
-              }
-            `}>
-              <FaArrowRight className={`
-                text-xl transition-colors duration-300
-                ${isHovered ? 'text-amber-600' : 'text-gray-400'}
-              `} />
             </div>
           </div>
 
-          {/* Счетчик внизу слева */}
-          <div className="absolute bottom-8 left-8 flex items-center gap-1">
-            <span className={`
-              text-sm font-medium transition-colors duration-300
-              ${isHovered ? 'text-white/90' : 'text-gray-500'}
-            `}>
-              {data.articleCount}+ материалов
+          {/* Эмодзи - скрываем на мобильных, оставляем на десктопе */}
+          <div className="hidden sm:block text-3xl sm:text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 flex-shrink-0">
+            {data.emoji}
+          </div>
+        </div>
+
+        {/* Описание */}
+        <p className={`
+          text-sm sm:text-base lg:text-lg mb-4 sm:mb-6
+          line-clamp-2 sm:line-clamp-3
+          text-gray-600 group-hover:text-white
+          transition-colors duration-300
+        `}>
+          {data.description}
+        </p>
+
+        {/* Теги */}
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
+          {data.tags.map((tag, index) => (
+            <span
+              key={index}
+              className={`
+                px-2 sm:px-3 py-1 sm:py-1.5
+                rounded-full text-xs sm:text-sm font-medium
+                bg-white ${data.textColor} border ${data.borderColor}
+                group-hover:bg-white/30 group-hover:text-white
+                group-hover:border-white/50
+                transition-all duration-300
+              `}
+            >
+              {tag}
             </span>
+          ))}
+        </div>
+
+        {/* Стрелка - адаптивное позиционирование */}
+        <div className="flex justify-end mt-auto">
+          <div className={`
+            w-8 h-8 sm:w-10 sm:h-10
+            rounded-full bg-gray-100 group-hover:bg-white
+            flex items-center justify-center
+            transition-all duration-500
+            group-hover:translate-x-2 group-hover:-translate-y-2
+          `}>
+            <FaArrowRight className={`
+              text-sm sm:text-xl
+              text-gray-400 group-hover:text-amber-600
+              transition-colors duration-300
+            `} />
           </div>
         </div>
       </div>
-
-      {/* Анимированная граница снизу */}
-      <div className={`
-        absolute bottom-0 left-0 right-0 h-1
-        bg-gradient-to-r ${data.hoverGradient}
-        transform scale-x-0 group-hover:scale-x-100
-        transition-transform duration-500 origin-left
-      `} />
     </Link>
   );
 };
