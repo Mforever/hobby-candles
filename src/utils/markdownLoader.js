@@ -1,4 +1,4 @@
-// Загрузчик MD файлов
+// Загрузчик Markdown файлов
 const articlesContext = import.meta.glob('../data/articles/*.md', {
   eager: true,
   query: '?raw',
@@ -30,6 +30,7 @@ export const getAllArticles = () => {
         const frontmatter = match[1];
         markdown = content.replace(frontmatterRegex, '').trim();
 
+        // Парсим YAML-like
         frontmatter.split('\n').forEach(line => {
           const [key, ...valueParts] = line.split(':');
           if (key && valueParts.length) {
@@ -48,6 +49,7 @@ export const getAllArticles = () => {
     }
   }
 
+  // Сортируем по дате (новые сверху)
   return articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 };
 
@@ -58,3 +60,6 @@ export const getArticleBySlug = (slug) => {
 export const getArticlesByCategory = (category) => {
   return getAllArticles().filter(article => article.category === category);
 };
+
+// Для отладки - выведи в консоль количество статей
+console.log(`📚 Загружено статей: ${getAllArticles().length}`);
