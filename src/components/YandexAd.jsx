@@ -1,15 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export default function YandexAd({ blockId, slotId, className = '' }) {
+export default function YandexAd({ blockId, className = '' }) {
     const location = useLocation();
-    const adRef = useRef(null);
-    const isAdRendered = useRef(false);
+    const containerRef = useRef(null);
+    const adId = `yandex_rtb_${blockId.replace(/-/g, '_')}`;
 
     useEffect(() => {
         // Убеждаемся, что объект Ya существует
         if (typeof window.Ya === 'undefined' || !window.Ya.Context) {
-            // Если скрипт еще не загрузился, ждем и пробуем снова
+            // Если скрипт еще не загружен, ждем
             const checkYa = setInterval(() => {
                 if (window.Ya && window.Ya.Context) {
                     clearInterval(checkYa);
@@ -22,36 +22,31 @@ export default function YandexAd({ blockId, slotId, className = '' }) {
         }
 
         function renderAd() {
-            // Очищаем контейнер перед новым рендером (важно для SPA)
-            if (adRef.current) {
-                adRef.current.innerHTML = '';
-            }
+            // Очищаем контейнер перед новым рендером
+            if (containerRef.current) {
+                containerRef.current.innerHTML = '';
+                const container = document.createElement('div');
+                container.id = adId;
+                containerRef.current.appendChild(container);
 
-            // Добавляем контейнер обратно
-            const container = document.createElement('div');
-            container.id = `yandex_rtb_${slotId}`;
-            if (adRef.current) {
-                adRef.current.appendChild(container);
-            }
-
-            // Рендерим рекламу
-            window.yaContextCb.push(() => {
-                window.Ya.Context.AdvManager.render({
-                    "blockId": blockId,
-                    "renderTo": `yandex_rtb_${slotId}`,
-                    "type": "floorAd", // Можно убрать или заменить на нужный тип
-                    "platform": "desktop" // или "touch" для мобильных
+                // Рендерим рекламу
+                window.yaContextCb.push(() => {
+                    Ya.Context.AdvManager.render({
+                        blockId: blockId,
+                        renderTo: adId,
+                        type: 'floorAd', // Можно убрать или заменить
+                    });
                 });
-            });
+            }
         }
 
-        // Очищаем при размонтировании компонента
+        // Очищаем при размонтировании
         return () => {
-            if (adRef.current) {
-                adRef.current.innerHTML = '';
+            if (containerRef.current) {
+                containerRef.current.innerHTML = '';
             }
         };
-    }, [blockId, slotId, location.pathname]); // 👈 Перезапускаем при смене страницы
+    }, [blockId, location.pathname]); // 👈 Перезапускаем при смене страницы
 
-    return <div ref={adRef} className={`ad-container ${className}`} />;
+    return <div ref={containerRef} className={`ad-container ${className}`} />;
 }

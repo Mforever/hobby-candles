@@ -10,5 +10,5 @@ Disallow: /*?
 Disallow: *.json
 Disallow: *.xml
 
-Sitemap: https://hobby-candles.vercel.app/sitemap.xml
-Host: https://hobby-candles.vercel.app
+Sitemap: https://hobby-cande.ru/sitemap.xml
+Host: https://hobby-cande.ru
