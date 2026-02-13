@@ -4,11 +4,10 @@ import { getArticleBySlug } from '../utils/markdownLoader';
 import ReactMarkdown from 'react-markdown';
 import Comments from '../components/Comments';
 import Newsletter from '../components/Newsletter';
-import AdBanner from '../components/AdBanner';
 import { Helmet } from 'react-helmet-async';
 import { FaCalendar, FaFolder } from 'react-icons/fa';
 import { getArticleImage } from '../assets/images/placeholders';
-import YandexAd from '../components/YandexAd';
+import YandexAdBanner from '../components/YandexAdBanner';
 
 export default function Article() {
   const { slug } = useParams();
@@ -86,7 +85,7 @@ export default function Article() {
             className="w-full h-[400px] object-cover rounded-2xl shadow-lg mb-12"
           />
 
-          <AdBanner slot="article-top" />
+          <YandexAdBanner blockId="R-A-18725579-2" className="my-8" />
 
           <div className="prose prose-lg prose-amber max-w-none mt-12">
             <ReactMarkdown>
@@ -94,10 +93,11 @@ export default function Article() {
             </ReactMarkdown>
           </div>
 
-          <AdBanner slot="article-bottom" />
+          <YandexAdBanner blockId="R-A-18725579-2" className="my-8" />
 
           <Comments articleSlug={slug} />
           <Newsletter />
+
         </div>
       </article>
     </>

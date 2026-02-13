@@ -6,6 +6,7 @@ import Newsletter from '../components/Newsletter';
 import Hero from '../components/Hero';
 import { getAllArticles } from '../utils/markdownLoader';
 import { Helmet } from 'react-helmet-async';
+import YandexAdBanner from '../components/YandexAdBanner';
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
@@ -57,6 +58,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* 👇 НОВЫЙ РЕКЛАМНЫЙ БЛОК */}
+      <YandexAdBanner blockId="R-A-18725579-2" className="my-8" />
+
+
 
       {/* Статьи */}
       <section className="py-20 bg-white">
