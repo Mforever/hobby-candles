@@ -8,6 +8,7 @@ import AdBanner from '../components/AdBanner';
 import { Helmet } from 'react-helmet-async';
 import { FaCalendar, FaFolder } from 'react-icons/fa';
 import { getArticleImage } from '../assets/images/placeholders';
+import YandexAd from '../components/YandexAd';
 
 export default function Article() {
   const { slug } = useParams();
