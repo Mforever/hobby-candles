@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Category from './pages/Category';
 import Article from './pages/Article';
 import About from './pages/About';
-
+import NotFound from './pages/NotFound';
 function App() {
   return (
     <HelmetProvider>
@@ -19,6 +19,7 @@ function App() {
               <Route path="/category/:cat" element={<Category />} />
               <Route path="/article/:slug" element={<Article />} />
               <Route path="/about" element={<About />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
